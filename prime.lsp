@@ -10,7 +10,8 @@
 (defun prime (num)
   ( if (equal 2 num) 
 	   (list num)
-	   (append (isPrime num (- num 1)) (prime (- num 1)))
-  )
+	   (append (prime (- num 1)) (isPrime num (- num 1))
+			   )
+	   
+	   )
 )
-(print (reverse (prime 199)))
