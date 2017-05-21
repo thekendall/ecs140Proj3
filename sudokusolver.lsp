@@ -152,6 +152,3 @@
     (formatSudoku board (sudokusolver board))
 )
 
-;Testing
-;(print (sudoku-solver '((3 0 1 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))  ))
-;(print (sudoku-solver '((1 2 0 0) (0 0 3 0) (0 0 0 0) (0 0 0 4))))
