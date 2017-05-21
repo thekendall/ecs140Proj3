@@ -34,8 +34,73 @@
 	(iteraterow (getColumn board column) value)
 )
 
+(defun checkQuadrantOne(board value)
+	(if (= (nth 0 (car board)) value)
+		NIL
+		(if (= (nth 1 (car board)) value)
+			NIL
+			(if(= (nth 0 (car (cdr board))) value)
+				NIL
+				(if(= (nth 1 (car (cdr board))) value)
+				 	NIL
+					T))))
+)
 
+(defun checkQuadrantTwo(board value)
+	(if (= (nth 2 (car board)) value)
+		NIL
+		(if (= (nth 3 (car board)) value)
+			NIL
+			(if(= (nth 2 (car (cdr board))) value)
+				NIL
+				(if(= (nth 3 (car (cdr board))) value)
+				 	NIL
+					T))))
+)
 
+(defun checkQuadrantThree(board value)
+	(if (= (nth 0 (car (cdr (cdr board)))) value)
+		NIL
+		(if (= (nth 1 (car (cdr (cdr board)))) value)
+			NIL
+			(if(= (nth 0 (car (cdr (cdr (cdr board))))) value)
+				NIL
+				(if(= (nth 1 (car (cdr (cdr (cdr board))))) value)
+				 	NIL
+					T))))
+
+)
+
+(defun checkQuadrantFour(board value)
+	(if (= (nth 2 (car (cdr (cdr board)))) value)
+		NIL
+		(if (= (nth 3 (car (cdr (cdr board)))) value)
+			NIL
+			(if(= (nth 2 (car (cdr (cdr (cdr board))))) value)
+				NIL
+				(if(= (nth 3 (car (cdr (cdr (cdr board))))) value)
+				 	NIL
+					T))))
+  
+)
+
+(defun checkSquares(board row column value)
+	(if (and (< row 2) (< column 2)) ;if(row < 2 && column <2)
+		(checkQuadrantOne board value)
+		(if (and (< row 2) (>= column 2))
+			(checkQuadrantTwo board value)
+			(if (and (>= row 2) (< column 2))
+				(checkQuadrantThree board value)
+				(if (and (>= row 2) (>= column 2))
+					(checkQuadrantFour board value)))))
+
+)
+
+(defun isValid(board row column value) ;checks row, column, square for the certain value. returns true if valid, nil otherwise
+	(if (and (and (checkSquares board row column value) (checkColumn board column value)) (checkRow board row value))
+		T
+		NIL)
+)
 (defun for(iterations)
 )
 
