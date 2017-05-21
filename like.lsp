@@ -9,7 +9,7 @@
 )
 (defun conditionalAppend(a b) ; helper tries T for a, b, default
 	(if (equal b "")
-		a
+		(append a (list Nil))
 		(append a (list b))
 	)
 )
@@ -45,7 +45,7 @@
 				)
 			)
 			(if (and (equal (subseq tester 0 1) "%") (= (length tester) 1))
-				(list T wildcard)
+				(list T Nil wildcard)
 				(list Nil Nil)
 			)
 				
@@ -55,7 +55,7 @@
 
 (defun formatLike (l)
 	(if (> (list-length l) 2) 
-		(append (list T) (reverse (cdr (cdr l)) ))
+		(list T (reverse (cdr (cdr l)) ))
 		l
 	)
 )
@@ -64,4 +64,4 @@
 	(formatLike (like tester str ""))
 )
 
-(print (like-match "hell%o__" "hellaaobc" ))
+(print (like-match "h%__%" "hello" ))
