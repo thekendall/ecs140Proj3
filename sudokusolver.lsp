@@ -2,13 +2,13 @@
   (nth 0 (nth i board))
 )
 
-(defun setrow(row i value) ;set a specific row value at i location to value
+(defun setrow(row i value) ;set a specific row value at i location to value this function was copied from stackoverflow
   	(if (> i 0)
 	  	(cons (car row) (setrow (cdr row) (1- i) value))
 		(cons value (cdr row)))
 )
 
-(defun setboard(board row column value) ;setting element at row,column to value
+(defun setboard(board row column value) ;setting element at row,column to value this function was basically copied from stackoverflow
   	(if (> row 0)
 	  	(cons (car board) (setboard (cdr board) (1- row) column value))
 		(cons (setrow (car board) column value) (cdr board)))
