@@ -1,7 +1,3 @@
-(defun getElem(board i j) ; Used for accessing element at row i, column j
-  (nth 0 (nth i board))
-)
-
 (defun setrow(row i value) ;set a specific row value at i location to value this function was copied from stackoverflow
   	(if (> i 0)
 	  	(cons (car row) (setrow (cdr row) (1- i) value))
@@ -98,12 +94,64 @@
 
 (defun isValid(board row column value) ;checks row, column, square for the certain value. returns true if valid, nil otherwise
 	(if (and (and (checkSquares board row column value) (checkColumn board column value)) (checkRow board row value))
-		T
+        T
 		NIL)
 )
-(defun for(iterations)
+
+
+(defun tryValues (board row column value)
+    (if (isValid board row column value)
+      (conditionalReturn (sudokusolver(setboard board row column value)) ; iterate
+          (if (< value 4) 
+            (tryValues board row column (+ value 1))
+            Nil ; If the last one then 4
+          )
+      )
+      (if (< value 4) 
+        (tryValues board row column (+ value 1))
+        Nil ; If the last one then 4
+      )
+    )  
+)
+
+(defun conditionalReturn(a b)
+    (if (equal a Nil)
+        b
+        a
+    )  
+)
+
+
+(defun iterate (board x y)
+  (if (equal (nth x (nth y board)) 0)
+    (; attempt to insert into board
+     tryValues board y x 1
+    )
+    (if (< x 3) ; Move to the next element
+        (iterate board (+ x 1) y) ; Change col not row.
+        (if (< y 3)
+            (iterate board 0 (+ y 1))
+            board
+        )
+    )
+ )
 )
 
 (defun sudokusolver(board)
-	
+    (iterate board 0 0)
 )
+
+(defun formatSudoku(original solved)
+  (if (equal solved Nil)
+    (list Nil original)
+    (list T solved)
+  )
+)
+
+(defun sudoku-solver (board)
+    (formatSudoku board (sudokusolver board))
+)
+
+;Testing
+;(print (sudoku-solver '((3 0 1 0) (0 0 0 0) (0 0 0 0) (0 0 0 0))  ))
+;(print (sudoku-solver '((1 2 0 0) (0 0 3 0) (0 0 0 0) (0 0 0 4))))
